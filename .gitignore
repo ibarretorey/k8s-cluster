@@ -1,0 +1,6 @@
+ssh-key.pub
+cluster.retry
+.vagrant
+group_vars/all.yml
+inventory
+output
