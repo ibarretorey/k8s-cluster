@@ -1,44 +1,61 @@
 # kubernetes-ansible
-Ansible playbook to create a Highly Available kubernetes cluster using latest release (1.13.4) on
-Bare metal system (have been tested on CentOS 7, Ubuntu 18.04).
+Proyecto ansible para crear un cluster de kubernetes que puede ser multimaster o single master.
+Fue probado en ambiente testing, en servicios virtualizados y en bare metal
+En todos los casos la pc de desarrollo contaba con Ubuntu 18.04.4 LTS(Desktop) y los servidores eran ubuntu Ubuntu 18.04.4 LTS (server)
 
-Requirements:
- - Ansible 2.7
+## Requisitos
 
-Download the Kubernetes-Ansible playbook and set up variable according to need in group variable file
-[all.yml](group_vars/all.yml.example). Please read this file carefully and modify according to your need.
+- `Producción:` solo es necesario contar con `Ansible 2.7` o superior
+Es recomendable contar con kubectl en la computadora de desarrollo y desde afuera conectarse al cluster,
+en lugar de establecer conexión a un nodo y desde ahi ejecutar kubectl.
+Esto se recomienda porque la conexión externa ya esta con balanceo de carga y HA.
+- `Testing:` es necesario contar con:
+  - `Ansible 2.7`
+  - `VirtualBox` u otro motor de virtualizacion
+  - `Vagrant`
+para el ambiente de test, la configuración de `inventory.yml.example` y `group_vars/all.yml.example` ya esta acorde al archivo vagrant
+y es posible levantar el cluster con unos pocos comandos.
 
-```
-git clone https://github.com/pawankkamboj/kubernetes-ansible.git
-cd kubernetes-ansible
-cp group_vars/all.yml.example group_vars/all.yml
-ansible-playbook -i inventory cluster.yml
-```
 
-Ansible roles
-- yum-proxy - installs Squid proxy server
-- yum-repo - installs epel repo
-- sslcert - create all ssl certificates require to run secure K8S cluster
+## Estructura del proyecto
+
+### Ansible roles
+
+- yum-proxy - installs Squid proxy server - solo neceasrio en caso de usar centOS **(no ha sido verificado)**
+- yum-repo - installs epel repo - solo neceasrio en caso de usar centOS **(no ha sido verificado)**
+- sslcert - crea todos los certificados ssl necesarios para que el cluster k8s funcione de forma segura
 - runtime-env - common settings for container runtime environment
 - docker - install latest docker release on all cluster nodes
-- containerd - IF you want to use containerd runtime instead of Docker, use this role and enable this in group variable file
-- etcd - setup etcd cluster, running as container on all master nodes
-- haproxy - setup haproxy for API service HA, running on all master nodes
-- keepalived - using keepalive for HA of IP address for kube-api server, running on all master nodes
-- master - setup kubernetes master controller components - `kube-apiserver`, `kube-controller`, `kube-scheduler`, `kubectl` client
-- node - setup kubernetes node agent - `kubelet`
-- addon - to create addon services: `flanneld`, `kube-proxy`, `kube-dns`, `metrics-server`
+- containerd - si se quiere usar containerd runtime en lugar de Docker se utiliza este rol - **se debe configurar habilitar en el grupo de variables**
+- etcd - instala etcd (base de datos key-value distribuida) cluster, es un pod que corre en todos los nodos master mediante la cual estos se sincronizan
+- haproxy - funciona en conjunto con keepalived, haproxy provee un servicio de alta disponibilidad para kube-API, se corre como servicio en todos los nodos master
+- keepalived - keepalive se usa para proveer HA de IP address a kube-api server, se corre como servicio en todos los nodos master
+- master - instala y configura un nodo k8s-master - `kube-apiserver`, `kube-controller`, `kube-scheduler`, `kubectl` client
+- node - instala un nodo k8s-worker - `kubelet`
+- addon - crea los addons básicos y normalmente usados en k8s: `flanneld`, `kube-proxy`, `kube-dns`, `dashboard` **se pueden deshabilitar individualmente en el grupo de variables**
 
-Note - Addon roles should be run after cluster is fully operational. Addons are in [addons.yml](addons.yml) playbook.
-After cluster is up and running then run `addon.yml` to deploy add-ons.
-Included addons are: `flannel network`, `kube-proxy`, `kube-dns` and `kube-dashboard`.
-```
+**NOTA:** Para correr los addon es necesario que el cluster este completamente levantado, por lo que hay que verificarlo o esperar un tiempo razonable (5 minutos) antes de correr los addon
+
+```bash
 ansible-playbook -i inventory addon.yml
 ```
 
+## Empezando
+
+```bash
+git clone https://github.com/ibarretorey/multimaster-k8s-cluster
+cd multimaster-k8s-cluster
+cp group_vars/all.yml.example group_vars/all.yml # editar todas las variables para su entorno especifico
+cp inventory.yml.example inventory.yml # editar las variables para su entorno especifico
+ansible-playbook -i inventory cluster.yml
+```
 
 
-# Mi readme
+
+## Base teórica y documentación
+
+
+## Comandos útiles
 
 [Instalar kubectl local]()
 [kubectl-autocomplete](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-autocomplete)

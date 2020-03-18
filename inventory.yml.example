@@ -1,0 +1,35 @@
+all:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    ansible_user: vagrant
+    ansible_ssh_private_key_file: ssh-key
+  children:
+    etcd:
+      hosts: 
+        192.168.50.11:
+        192.168.50.12:
+        192.168.50.13:
+      vars:
+        etcd_interface: "enp0s8"
+    masters:
+      hosts: 
+        192.168.50.11:
+        192.168.50.12:
+        192.168.50.13:
+      vars:
+        node_internal_interface: "enp0s8" 
+        kube_api_interface: "{{ node_internal_interface }}"
+        keepalived_interface: "{{ node_internal_interface }}"
+        flannel_interface: "{{ node_internal_interface }}"
+    node:
+      hosts: 
+        192.168.50.21:
+        192.168.50.22:
+      vars:
+        node_internal_interface: "enp0s8" 
+        kube_api_interface: "{{ node_internal_interface }}"
+        keepalived_interface: "{{ node_internal_interface }}"
+        flannel_interface: "{{ node_internal_interface }}"
+    sslhost:
+      hosts: 
+        192.168.50.11:
