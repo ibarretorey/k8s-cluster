@@ -667,4 +667,6 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtyvH+w3PNvgp9BSEy94B4chUXpAOItTLUe7iDcMrk
 -----END SSH HOST KEY KEYS-----
 [   21.369614] cloud-init[1898]: Cloud-init v. 19.4-33-gbb4131a2-0ubuntu1~18.04.1 running 'modules:final' at Tue, 17 Mar 2020 22:06:27 +0000. Up 21.21 seconds.
 [   21.369716] cloud-init[1898]: ci-info: no authorized SSH keys fingerprints found for user ubuntu.
-[   21.370196] cloud-init[1898]: Cloud-init v. 19.4-33-gbb4131a2-0ubuntu1~18.04.1 finished at Tue, 17 Mar 2020 22:06:27 +0000. Datasource DataSourceNoCloud [seed=/dev/sdb][dsmode=net].  Up 21.36 seconds
+[   21.370196] cloud-init[1898]: Cloud-init v. 19.4-33-gbb4131a2-0ubuntu1~18.04.1 finished at Tue, 17 Mar 2020 22:06:27 +0000. Datasource D[16731.789021] e1000 0000:00:08.0 enp0s8: Reset adapter
+econds
+                                                                                                                                                                                                                                                                                                                                                                                                                            [16692.065565] e1000 0000:00:08.0 enp0s8: Reset adapter
