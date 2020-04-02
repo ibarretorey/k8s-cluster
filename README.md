@@ -1,4 +1,5 @@
-# kubernetes-ansible
+# Kubernetes cluster con ansible
+
 Proyecto ansible para crear un cluster de kubernetes que puede ser multimaster o single master.
 Fue probado en ambiente testing, en servicios virtualizados y en bare metal
 En todos los casos la pc de desarrollo contaba con Ubuntu 18.04.4 LTS(Desktop) y los servidores eran ubuntu Ubuntu 18.04.4 LTS (server)
@@ -18,6 +19,8 @@ y es posible levantar el cluster con unos pocos comandos.
 
 
 ## Estructura del proyecto
+
+
 
 ### Ansible roles
 
@@ -41,6 +44,7 @@ ansible-playbook -i inventory addon.yml
 ```
 
 ## Empezando
+
 
 ```bash
 git clone https://github.com/ibarretorey/multimaster-k8s-cluster
