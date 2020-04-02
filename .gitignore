@@ -4,3 +4,4 @@ cluster.retry
 group_vars/all.yml
 inventory
 output
+*.log
