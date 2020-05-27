@@ -1,0 +1,17 @@
+- name: Specifying a path directly
+  fetch:
+    src: "/etc/kubernetes/{{ item }}"
+    dest: "{{ inventory_dir }}/kubectl-config/"
+    flat: yes
+  with_items:
+    - pki/ca.pem
+    - pki/admin.pem
+    - pki/admin-key.pem
+    - kubeadminconfig
+
+- name: Explicitly specifying named matched groups
+  replace:
+    path: "{{ inventory_dir }}/kubectl-config/kubeadminconfig"
+    regexp: '\/etc\/kubernetes\/pki'
+    replace: '.'
+  delegate_to: localhost
