@@ -36,7 +36,7 @@ scheduler_key: /etc/kubernetes/pki/scheduler-key.pem
 # Use keepalived for API HA. If there is only one master node, then set 'enabled' to false.
 keepalived:
   enabled: true
-  interface: eth1
+  interface: enp0s8
   shared_ip: 192.168.50.100     # Virtual IP
   vrid: 110                     # Virtual Router ID
   adv_interval: 1               # VRRP advert interval
@@ -83,16 +83,16 @@ haproxy:
 
 # kube-api server settings
 kube_api:
-  interface: eth1
+  interface: enp0s8
   secure_port: 6443
   url: "https://{{ keepalived.shared_ip }}"             # Should be haproxy host IP or network load balancer IP. If you use only one api server then setup its IP.
 
 #- node interface
-node_interface: eth1
+node_interface: enp0s8
 
 #- etcd config
 etcd:
-  interface: eth1
+  interface: enp0s8
   client_port: 2379
   peer_port: 2380
 
@@ -120,3 +120,8 @@ cni_conf_dir: /etc/cni/net.d/
 
 # yum proxy for vagrant
 yum_proxy: "http://192.168.50.99:3128"
+
+
+#- dashboard
+dashboard:
+  enable: true

@@ -71,6 +71,3 @@
   delegate_to: "{{ groups['masters'][0] }}"
   run_once: true
   when: dashboard.enable
-
-- copy:
-  
