@@ -27,10 +27,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		config.vm.provision "shell", inline: <<-SHELL
 			cat /home/vagrant/.ssh/ssh-key.pub >> /home/vagrant/.ssh/authorized_keys
 		SHELL
-
-		config.vm.provider :virtualbox do |vb|
-			vb.customize ["modifyvm", :id, "--memory", "2024"]
-		end
 	end
 #=======================================================
 # Configuración master 2
@@ -43,10 +39,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		config.vm.provision "shell", inline: <<-SHELL
 			cat /home/vagrant/.ssh/ssh-key.pub >> /home/vagrant/.ssh/authorized_keys
 		SHELL
-
-		config.vm.provider :virtualbox do |vb|
-			vb.customize ["modifyvm", :id, "--memory", "2024"]
-		end
 	end
 #=======================================================
 # Configuración master 3
@@ -59,10 +51,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		config.vm.provision "shell", inline: <<-SHELL
 			cat /home/vagrant/.ssh/ssh-key.pub >> /home/vagrant/.ssh/authorized_keys
 		SHELL
-
-		config.vm.provider :virtualbox do |vb|
-			vb.customize ["modifyvm", :id, "--memory", "2024"]
-		end
 	end
 #=======================================================
 # Configuración node 1
@@ -88,20 +76,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 			cat /home/vagrant/.ssh/ssh-key.pub >> /home/vagrant/.ssh/authorized_keys
 		SHELL
 	end
-# #=======================================================
-# # Configuración yum proxy
-# #=======================================================
-# 	config.vm.define "yum-proxy" do |node|
-# 		node.vm.network "private_network", ip: "192.168.50.99"
-# 		node.vm.hostname = "cache"
-		
-# 		config.vm.provider :virtualbox do |vb|
-# 			vb.customize ["modifyvm", :id, "--memory", "512"]
-# 		end
-
-# 		config.vm.provision "file", source: "./ssh-key.pub", destination: "~/.ssh/ssh-key.pub"
-# 		config.vm.provision "shell", inline: <<-SHELL
-# 			cat /home/vagrant/.ssh/ssh-key.pub >> /home/vagrant/.ssh/authorized_keys
-# 		SHELL
-# 	end
 end
