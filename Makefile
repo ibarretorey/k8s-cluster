@@ -12,7 +12,7 @@ kubectl_config:
 	docker run --rm -it -v $(shell pwd):/playbooks -w /playbooks ibarretorey/nwtools ansible-playbook -i inventory.yml kubectl-get-config.yml
 
 vagrant_tear_down:
-	vagrant delete -f
+	vagrant destroy -f
 
 get_all_pods_example:
 	kubectl --kubeconfig=./kubectl-config/kubeadminconfig get pods -o wide --all-namespaces
