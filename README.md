@@ -2,25 +2,46 @@
 
 Proyecto ansible para crear un cluster de kubernetes que puede ser multimaster o single master.
 Fue probado en ambiente testing, en servicios virtualizados y en bare metal
-En todos los casos la pc de desarrollo contaba con Ubuntu 18.04.4 LTS(Desktop) y los servidores eran ubuntu Ubuntu 18.04.4 LTS (server)
+
+**ACLARACION: hasta el momento todas las pruebas se han hecho siendo ubuntu todos los servidores del cluster.**
+
+<!-- TODO: testear en ambiente CentOS -->
 
 ## Requisitos
 
-- `Producción:` solo es necesario contar con `Ansible 2.7` o superior
-Es recomendable contar con kubectl en la computadora de desarrollo y desde afuera conectarse al cluster,
-en lugar de establecer conexión a un nodo y desde ahi ejecutar kubectl.
-Esto se recomienda porque la conexión externa ya esta con balanceo de carga y HA.
+- `Producción:` solo es necesario contar con `Docker` o `Ansible` (si ven makefile ansible se corre dentro de un
+contenedor que cuenta con ansible instalado pero perfectamente podrian ejecutarse los comandos en la pc de desarrollo)
+Es recomendable contar con kubectl en la computadora de desarrollo para poder conectarse directo al cluster,
+en lugar de establecer conexión a un nodo y desde ahi ejecutar kubectl, esto se recomienda porque la conexión 
+externa ya esta con HA etre los diferentes nodos master.
+
 - `Testing:` es necesario contar con:
-  - `Ansible 2.7`
+  - `Docker` o `Ansible`
   - `VirtualBox` u otro motor de virtualizacion
   - `Vagrant`
 para el ambiente de test, la configuración de `inventory.yml.example` y `group_vars/all.yml.example` ya esta acorde al archivo vagrant
 y es posible levantar el cluster con unos pocos comandos.
 
-
 ## Estructura del proyecto
 
-
+```bash
+├── docs # documentacion extra y guias interesantes que se utilizaron para comprender algunos conceptos claves
+├── groups_vars # templates de variables con valores por defecto, desde donde el cluster toma la configuracion basica
+│   │   └── Todos los modelos
+│   ├── resolvers
+│   │   ├── <nombre_del_resolver_especifico>
+│   │   │    ├── types
+│   │   │    │   ├── <tipos de inputs del resolver> # declaracion de los tipos para las inputs.
+│   │   │    │   └── ...
+│   │   │    └── index.ts # contiene el codigo del resolver, queries mutations and subscriptions
+│   │   └── ...
+│   ├── utils
+│   │   ├── db.ts # metodo para checkear y conectar con la DB
+│   │   ├── GqlLogMiddleware.ts # middleware para logear en consola y guardar en la DB operaciones GraphQL
+│   │   └── environment.ts # types y checkeo de types para cargar el environment
+│   ├── dbconfig.ts # configuraciones de la DB para cada entorno
+│   └── index.ts # main que se corre para levantar servidores y compilar el schema GraphQL
+```
 
 ### Ansible roles
 
