@@ -27,20 +27,19 @@ y es posible levantar el cluster con unos pocos comandos.
 ```bash
 ├── docs # documentacion extra y guias interesantes que se utilizaron para comprender algunos conceptos claves
 ├── groups_vars # templates de variables con valores por defecto, desde donde el cluster toma la configuracion basica
-│   │   └── Todos los modelos
-│   ├── resolvers
-│   │   ├── <nombre_del_resolver_especifico>
-│   │   │    ├── types
-│   │   │    │   ├── <tipos de inputs del resolver> # declaracion de los tipos para las inputs.
-│   │   │    │   └── ...
-│   │   │    └── index.ts # contiene el codigo del resolver, queries mutations and subscriptions
-│   │   └── ...
-│   ├── utils
-│   │   ├── db.ts # metodo para checkear y conectar con la DB
-│   │   ├── GqlLogMiddleware.ts # middleware para logear en consola y guardar en la DB operaciones GraphQL
-│   │   └── environment.ts # types y checkeo de types para cargar el environment
-│   ├── dbconfig.ts # configuraciones de la DB para cada entorno
-│   └── index.ts # main que se corre para levantar servidores y compilar el schema GraphQL
+├── roles #
+│   ├── 
+│   ├──
+│   .
+│   .
+│   .
+│   └──
+├── addon.yml
+├── ansible.cfg
+├── inventory.yml.example
+├── kubectl-get-config.yml
+├── Makefile
+└── Vagrantfile
 ```
 
 ### Ansible roles
