@@ -27,19 +27,19 @@ y es posible levantar el cluster con unos pocos comandos.
 ```bash
 ├── docs # documentacion extra y guias interesantes que se utilizaron para comprender algunos conceptos claves
 ├── groups_vars # templates de variables con valores por defecto, desde donde el cluster toma la configuracion basica
-├── roles #
-│   ├── 
-│   ├──
+├── roles # contiene todos los ansibles roles, cada uno instala y configura requisotos del cluster
+│   ├── master # instala y configura los servicios k8s necesarios para un nodo master
+│   ├── node # instala y configura los servicios k8s necesarios para un nodo master
 │   .
 │   .
 │   .
-│   └──
-├── addon.yml
-├── ansible.cfg
-├── inventory.yml.example
-├── kubectl-get-config.yml
-├── Makefile
-└── Vagrantfile
+│   └── sslcert # crea todos los certificados para la comunicacion entre nodos del cluster y con el cluster
+├── addon.yml # playbook que se corre para installar los addons, ej: flannel y dashboard
+├── ansible.cfg # configuracion basica para conexiones ansible
+├── inventory.yml.example # template de ejemplo que trae defaults para correr el ambiente test con vagrant
+├── kubectl-get-config.yml # playbook para levantar la config del cluster y guardara local para conectar con kubectl local
+├── Makefile # comandos comprimidos y mas accesibles para ejecutar las tareas
+└── Vagrantfile # condiguracion de las maquinas virtuales que se crean para el ambiente test
 ```
 
 ### Ansible roles
