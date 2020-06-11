@@ -1,4 +1,5 @@
 ssh-key.pub
+ssh-key
 cluster.retry
 .vagrant
 group_vars/all.yml

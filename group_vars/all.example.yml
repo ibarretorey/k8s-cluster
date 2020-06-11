@@ -1,4 +1,3 @@
-#- setup variable for cluster installation
 #- kubernetes dir
 kube_config_dir: /etc/kubernetes
 manifest_config_dir: /etc/kubernetes/manifests
@@ -8,7 +7,7 @@ kube_addon_dir: /etc/kubernetes/addon
 flannel_dir: /etc/sysconfig
 
 #- get k8s version
-k8s_version: "v1.16.9"
+k8s_version: "v1.18.0"
 
 #- image and other variable
 api_image: gcr.io/google_containers/kube-apiserver-amd64:{{ k8s_version }}
@@ -16,10 +15,6 @@ controller_image: gcr.io/google_containers/kube-controller-manager-amd64:{{ k8s_
 scheduler_image: gcr.io/google_containers/kube-scheduler-amd64:{{ k8s_version }}
 kube_proxy_image: gcr.io/google_containers/kube-proxy-amd64:{{ k8s_version }}
 etcd_image: k8s.gcr.io/etcd:3.3.10
-
-#- cluster service ip range
-service_ip_range: 10.96.0.0/24
-kubernetes_service_ip: 10.96.0.1  #- IP of default kubernetes service, it is the first IP of network CIDR range
 
 #- all certifactes for cluster  
 ca_cert: /etc/kubernetes/pki/ca.pem
@@ -43,6 +38,10 @@ keepalived:
   authtype: PASS                # 'PASS' (simple password) or 'AH' (IPSEC)
   password: k8s@123             # password for accessing VRRP
 
+#- cluster service ip range
+service_ip_range: 10.96.0.0/24
+kubernetes_service_ip: 10.96.0.1  #- IP of default kubernetes service, it is the first IP of network CIDR range
+
 #- kubeconfig file 
 kubeadminconfig: /etc/kubernetes/kubeadminconfig
 
@@ -61,7 +60,7 @@ auth_mode: Node,RBAC
 kube_proxy: true # set true only if cluster is fully operation and running
 
 #- kube-dns add-on
-kube_dns: true # set true only if cluster is fully operation and running
+kube_dns: false # set true only if cluster is fully operation and running
 #- if true then set following
 dns_ip: 10.96.0.10 # it should be from cluster service_ip_range
 dns_replicas: 1
