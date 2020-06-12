@@ -24,6 +24,8 @@ y es posible levantar el cluster con unos pocos comandos.
 
 ## Estructura del proyecto
 
+### Estructuras del directorio
+
 ```bash
 ├── docs # documentacion extra y guias interesantes que se utilizaron para comprender algunos conceptos claves
 ├── groups_vars # templates de variables con valores por defecto, desde donde el cluster toma la configuracion basica
@@ -42,7 +44,7 @@ y es posible levantar el cluster con unos pocos comandos.
 └── Vagrantfile # condiguracion de las maquinas virtuales que se crean para el ambiente test
 ```
 
-### Ansible roles
+### Descripcion de Ansible roles
 
 - yum-proxy - installs Squid proxy server - solo neceasrio en caso de usar centOS **(no ha sido verificado)**
 - yum-repo - installs epel repo - solo neceasrio en caso de usar centOS **(no ha sido verificado)**
@@ -67,10 +69,12 @@ ansible-playbook -i inventory addon.yml
 
 
 ```bash
-git clone https://github.com/ibarretorey/multimaster-k8s-cluster
-cd multimaster-k8s-cluster
+git clone https://github.com/ibarretorey/k8s-cluster.git
+cd k8s-cluster
 cp group_vars/all.yml.example group_vars/all.yml # editar todas las variables para su entorno especifico
 cp inventory.yml.example inventory.yml # editar las variables para su entorno especifico
+make deploy_test
+make install_addons_test
 ansible-playbook -i inventory cluster.yml
 ```
 
